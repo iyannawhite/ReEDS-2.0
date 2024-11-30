@@ -6514,3 +6514,6 @@ emit_rate(e,i,v,r,t)$[not valgen(i,v,r,t)] = 0 ;
 
 valinv_init(i,v,r,t) = valinv(i,v,r,t) ;
 valcap_init(i,v,r,t) = valcap(i,v,r,t) ;
+
+m_capacity_exog('hydEND','init-1','p2',t)$[(t.val>=2034)$Sw_Ret_Iyanna] = max(0, m_capacity_exog('hydEND','init-1','p2',t) - 2402) ;
+m_capacity_exog('hydEND','init-1','p3',t)$[(t.val>=2034)$Sw_Ret_Iyanna] = max(0, m_capacity_exog('hydEND','init-1','p3',t) - 499) ;
