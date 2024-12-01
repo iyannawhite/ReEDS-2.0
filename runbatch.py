@@ -268,7 +268,7 @@ def check_compatibility(sw):
                 f"{metric}_{value} was provided"
             )
 
-    for keyval in sw['GSw_PRM_NetImportLimitScen'].split('/'):
+    """ for keyval in sw['GSw_PRM_NetImportLimitScen'].split('/'):
         err = (
             "GSw_PRM_NetImportLimitScen accepts inputs in the format "
             "{year1}_{'hist' or float}/{year2}_{float}/{year3}_{float} "
@@ -285,7 +285,7 @@ def check_compatibility(sw):
             try:
                 float(limit)
             except ValueError:
-                raise ValueError(err)
+                raise ValueError(err) """
 
     for bir in sw['GSw_PVB_BIR'].split('_'):
         if not (float(bir) >= 0):

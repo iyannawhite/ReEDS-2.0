@@ -324,3 +324,5 @@ hourly_cluster_plots,switch to control the creation of diagnostic plots for hour
 dump_alldata,switch to automatically dump data from final solve year into .gdx file,0; 1,0,,,,
 delete_big_files,switch to delete big input files after completion to save storage space,0; 1,0,,,,
 debug,Write and keep intermediate files and equation elements to help with debugging. The value of the switch is passed to `option limrow` and `option limcol` and indicates the number of equation and variable entries to print,int,0,,,,
+GSw_H2_PTC,Turn on/off Hydrogren Production Tax Credits ,0; 1,0,,,,
+resource_adequacy_years,N/A,N/A,2012,,,,
