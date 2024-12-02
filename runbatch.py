@@ -435,10 +435,10 @@ def setup_sequential_year(
                 toLogGamsString, hpc,
             ))
         OPATH.writelines(writescripterrorcheck(f"d_solveoneyear.gms_{cur_year}"))
-        OPATH.writelines('python {t} --year={y}\n'.format(t=ticker, y=cur_year))
+        OPATH.writelines('python3 {t} --year={y}\n'.format(t=ticker, y=cur_year))
 
         if int(caseSwitches['GSw_ValStr']):
-            OPATH.writelines("python valuestreams.py" + '\n')
+            OPATH.writelines("python3 valuestreams.py" + '\n')
 
         ## check to see if the restart file exists
         OPATH.writelines(writeerrorcheck(os.path.join("g00files",savefile + ".g*")))
@@ -449,7 +449,7 @@ def setup_sequential_year(
         and (next_year > int(caseSwitches['GSw_SkipAugurYear']))
     ) or (cur_year == max(solveyears))):
         OPATH.writelines(
-            f"\npython Augur.py {next_year} {cur_year} {casedir}\n")
+            f"\npython3 Augur.py {next_year} {cur_year} {casedir}\n")
         ## Check to make sure Augur ran successfully; quit otherwise
         OPATH.writelines(
             writeerrorcheck(os.path.join(
@@ -490,7 +490,7 @@ def setup_sequential(
         big_comment(f'Year: {cur_year}', OPATH)
 
         ### Write the tax credit phaseout call
-        OPATH.writelines(f"python tc_phaseout.py {cur_year} {casedir}\n\n")
+        OPATH.writelines(f"python3 tc_phaseout.py {cur_year} {casedir}\n\n")
 
         ### Write the GAMS LP and Augur calls
         if (
@@ -498,7 +498,7 @@ def setup_sequential(
             and (not int(caseSwitches['GSw_PRM_CapCredit']))
         ):
             OPATH.writelines(
-                f"python d_solve_iterate.py {casedir} {cur_year}\n"
+                f"python3 d_solve_iterate.py {casedir} {cur_year}\n"
             )
             OPATH.writelines(writescripterrorcheck(f"d_solve_iterate.py_{cur_year}"))
         else:
@@ -511,7 +511,7 @@ def setup_sequential(
 
         ### Run Augur plots in background
         OPATH.writelines(
-            f"python {os.path.join('ReEDS_Augur','diagnostic_plots.py')} "
+            f"python3 {os.path.join('ReEDS_Augur','diagnostic_plots.py')} "
             f"--reeds_path={reeds_path} --casedir={casedir} --t={cur_year} &\n")
 
 
@@ -563,7 +563,7 @@ def setup_intertemporal(
         if i < niter-1:
             ## batch out calls to augurbatch
             OPATH.writelines(
-                "python augurbatch.py " + batch_case + " " + str(ccworkers) + " "
+                "python3 augurbatch.py " + batch_case + " " + str(ccworkers) + " "
                 + yearset_augur + " " + savefile + " " + str(begyear) + " "
                 + str(endyear) + " " + caseSwitches['distpvscen'] + " "
                 + str(caseSwitches['calc_csp_cc']) + " "
@@ -589,7 +589,7 @@ def setup_intertemporal(
         restartfile=savefile
 
     if caseSwitches['GSw_ValStr'] != '0':
-        OPATH.writelines( "python valuestreams.py" + '\n')
+        OPATH.writelines( "python3 valuestreams.py" + '\n')
 
 
 def setup_window(
@@ -630,7 +630,7 @@ def setup_window(
             ## start threads for cc/curt
             OPATH.writelines(writeerrorcheck(os.path.join("g00files",savefile + ".g*")))
             OPATH.writelines(
-                "python augurbatch.py " + batch_case + " " + str(ccworkers) + " "
+                "python3 augurbatch.py " + batch_case + " " + str(ccworkers) + " "
                 + yearset_augur + " " + savefile + " " + str(begyear) + " "
                 + str(endyear) + " " + caseSwitches['distpvscen'] + " "
                 + str(caseSwitches['calc_csp_cc']) + " "
@@ -654,7 +654,7 @@ def setup_window(
             OPATH.writelines(writeerrorcheck(gdxmergedfile+".gdx"))
             restartfile=savefile
         if caseSwitches['GSw_ValStr'] != '0':
-            OPATH.writelines( "python valuestreams.py" + '\n')
+            OPATH.writelines( "python3 valuestreams.py" + '\n')
 
 
 #%% ===========================================================================
@@ -734,7 +734,7 @@ def setupEnvironment(
         print(
             f"Your environment is {os.environ['CONDA_DEFAULT_ENV']} and your pandas "
             f"version is {pd.__version__}.\nThe default environment is 'reeds2', with\n"
-            "pandas version 2.x, so the python parts of ReEDS are unlikely to work.\n"
+            "pandas version 2.x, so the python3 parts of ReEDS are unlikely to work.\n"
             "To build the environment for the first time, run:\n"
             "    `conda env create -f environment.yml`\n"
             "To activate the created environment, run:\n"
@@ -1125,7 +1125,7 @@ def runModel(options, caseSwitches, niter, reeds_path, ccworkers, startiter,
                 socket.gethostname(),
                 repo.git_dir, branch, repo.head.object.hexsha, description))
     except Exception:
-        ### In case the user hasn't installed GitPython (conda install GitPython)
+        ### In case the user hasn't installed Gitpython3 (conda install Gitpython3)
         ### or isn't in a git repo or anything else goes wrong
         loglines.append('None,None,None,None,None\n')
 
@@ -1303,7 +1303,7 @@ def runModel(options, caseSwitches, niter, reeds_path, ccworkers, startiter,
                 OPATH.writelines(f"echo 'starting {s}.py'\n")
                 OPATH.writelines(f"echo {'-'*12+'-'*len(s)}\n")
                 OPATH.writelines(
-                    f"python {os.path.join(casedir,'input_processing',s)}.py {reeds_path} {inputs_case}\n")
+                    f"python3 {os.path.join(casedir,'input_processing',s)}.py {reeds_path} {inputs_case}\n")
                 OPATH.writelines(writescripterrorcheck(s)+'\n')
 
             big_comment('Compile model', OPATH)
@@ -1312,7 +1312,7 @@ def runModel(options, caseSwitches, niter, reeds_path, ccworkers, startiter,
                 "\ngams createmodel.gms gdxcompress=1 xs="+os.path.join("g00files",batch_case)
                 + (' license=gamslice.txt' if hpc else '')
                 + " o="+os.path.join("lstfiles","1_Inputs.lst") + options + " " + toLogGamsString + '\n')
-            OPATH.writelines('python {t}\n'.format(t=ticker))
+            OPATH.writelines('python3 {t}\n'.format(t=ticker))
             restartfile = batch_case
             OPATH.writelines(writeerrorcheck(os.path.join('g00files',restartfile + '.g*')))
 
@@ -1371,13 +1371,13 @@ def runModel(options, caseSwitches, niter, reeds_path, ccworkers, startiter,
         OPATH.writelines(writescripterrorcheck("e_report.gms"))
         if not LINUXORMAC:
             OPATH.writelines("endlocal\n")
-        OPATH.writelines('python {t}\n'.format(t=ticker))
-        OPATH.writelines('python e_report_dump.py {}\n\n'.format(casedir))
+        OPATH.writelines('python3 {t}\n'.format(t=ticker))
+        OPATH.writelines('python3 e_report_dump.py {}\n\n'.format(casedir))
 
         ### Run the retail rate module
         if caseSwitches['GSw_Region'].lower() == 'usa':
             OPATH.writelines(
-                "python"
+                "python3"
                 + f" {os.path.join(reeds_path,'postprocessing','retail_rate_module','retail_rate_calculations.py')}"
                 + f" {batch_case} -p\n\n"
             )
@@ -1385,7 +1385,7 @@ def runModel(options, caseSwitches, niter, reeds_path, ccworkers, startiter,
         ## Run air-quality and health damages calculation script
         if int(caseSwitches['GSw_HealthDamages']):
             OPATH.writelines(
-                f"python {os.path.join(reeds_path,'postprocessing','air_quality','health_damage_calculations.py')} {casedir}\n\n"
+                f"python3 {os.path.join(reeds_path,'postprocessing','air_quality','health_damage_calculations.py')} {casedir}\n\n"
             )
 
         ### Make script to unload all data to .gdx file
@@ -1412,37 +1412,37 @@ def runModel(options, caseSwitches, niter, reeds_path, ccworkers, startiter,
         ## ReEDS_to_rev processing
         if caseSwitches['reeds_to_rev'] == '1':
             OPATH.writelines('cd {} \n\n'.format(reeds_path))
-            OPATH.writelines(f'python hourlize/reeds_to_rev.py {reeds_path} {casedir} "priority" ' 
+            OPATH.writelines(f'python3 hourlize/reeds_to_rev.py {reeds_path} {casedir} "priority" ' 
                              '-t "wind-ons" --new_incr_mw 6 -l "gamslog.txt" -r\n')
-            OPATH.writelines(f'python hourlize/reeds_to_rev.py {reeds_path} {casedir} "priority" ' 
+            OPATH.writelines(f'python3 hourlize/reeds_to_rev.py {reeds_path} {casedir} "priority" ' 
                              '-t "wind-ofs" -l "gamslog.txt" -r\n')
-            OPATH.writelines(f'python hourlize/reeds_to_rev.py {reeds_path} {casedir} "simultaneous" '
+            OPATH.writelines(f'python3 hourlize/reeds_to_rev.py {reeds_path} {casedir} "simultaneous" '
                              '-t "upv" -l "gamslog.txt" -r\n\n')
             
         if caseSwitches['land_use_analysis'] == '1':
             # Run the land-used characterization module
             OPATH.writelines(
-                f"python {os.path.join(reeds_path,'postprocessing','land_use','land_use_analysis.py')} {casedir}\n\n"
+                f"python3 {os.path.join(reeds_path,'postprocessing','land_use','land_use_analysis.py')} {casedir}\n\n"
             )
 
         ## Run Bokeh
         bokehdir = os.path.join(reeds_path,"postprocessing","bokehpivot","reports")
         OPATH.writelines(
-            'python ' + os.path.join(bokehdir,"interface_report_model.py") + ' "ReEDS 2.0" '
+            'python3 ' + os.path.join(bokehdir,"interface_report_model.py") + ' "ReEDS 2.0" '
             + os.path.join(reeds_path,"runs",batch_case) + " all No none "
             + os.path.join(bokehdir,"templates","reeds2","standard_report_reduced.py") + ' "html,excel,csv" one '
             + os.path.join(reeds_path,"runs",batch_case,"outputs","reeds-report-reduced") + ' No\n')
         OPATH.writelines(
-            'python ' + os.path.join(bokehdir,"interface_report_model.py") + ' "ReEDS 2.0" '
+            'python3 ' + os.path.join(bokehdir,"interface_report_model.py") + ' "ReEDS 2.0" '
             + os.path.join(reeds_path,"runs",batch_case) + " all No none "
             + os.path.join(bokehdir,"templates","reeds2","standard_report_expanded.py") + ' "html,excel" one '
             + os.path.join(reeds_path,"runs",batch_case,"outputs","reeds-report") + ' No\n')
         OPATH.writelines(
-            'python ' + os.path.join(bokehdir,"interface_report_model.py") + ' "ReEDS 2.0" '
+            'python3 ' + os.path.join(bokehdir,"interface_report_model.py") + ' "ReEDS 2.0" '
             + os.path.join(reeds_path,"runs",batch_case) + " all No none "
             + os.path.join(bokehdir,"templates","reeds2","state_report.py") + ' "csv" one '
             + os.path.join(reeds_path,"runs",batch_case,"outputs","reeds-report-state") + ' No\n\n')
-        OPATH.writelines('python postprocessing/vizit/vizit_prep.py ' + '"{}"'.format(os.path.join(casedir,'outputs')) + '\n\n')
+        OPATH.writelines('python3 postprocessing/vizit/vizit_prep.py ' + '"{}"'.format(os.path.join(casedir,'outputs')) + '\n\n')
 
         if int(caseSwitches['delete_big_files']):
             for file in [
@@ -1458,7 +1458,7 @@ def runModel(options, caseSwitches, niter, reeds_path, ccworkers, startiter,
             OPATH.writelines('')
 
         if int(caseSwitches['transmission_maps']):
-            OPATH.writelines('python postprocessing/transmission_maps.py -c {} -y {}\n'.format(
+            OPATH.writelines('python3 postprocessing/transmission_maps.py -c {} -y {}\n'.format(
                 casedir, (
                     solveyears[-1]
                     if int(caseSwitches['transmission_maps']) > int(solveyears[-1])
@@ -1469,11 +1469,11 @@ def runModel(options, caseSwitches, niter, reeds_path, ccworkers, startiter,
         pipe = '2>&1 | tee -a' if LINUXORMAC else '>>'
         tolog = f"{pipe} {os.path.join(casedir,'gamslog.txt')}"
         OPATH.writelines(
-            f"\npython -m pytest -v -l tests/test_r2x_integration.py --casepath {casedir} {tolog}\n"
+            f"\npython3 -m pytest -v -l tests/test_r2x_integration.py --casepath {casedir} {tolog}\n"
         )
 
         ### Check the error level
-        OPATH.writelines(f"\npython postprocessing/check_error.py {casedir} {tolog}\n")
+        OPATH.writelines(f"\npython3 postprocessing/check_error.py {casedir} {tolog}\n")
 
     ### =====================================================================================
     ### --- CALL THE CREATED BATCH FILE ---

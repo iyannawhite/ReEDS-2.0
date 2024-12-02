@@ -71,7 +71,7 @@ chown -R ec2-user ~/tmp
 TMPDIR=~/tmp sh /home/ec2-user/r2/Anaconda3-2020.11-Linux-x86_64.sh -b -p /home/ec2-user/anaconda3
 
 #ordering matters here - we want to be certain that 
-#the system sees the conda version of python before
+#the system sees the conda version of python3 before
 #any other - both GAMS and otherwise
 export PATH=/home/ec2-user/anaconda3/bin/:$PATH:/opt/gams/gams35.1_linux_x64_64_sfx/
 
@@ -98,37 +98,37 @@ git clone git@github.nrel.gov:ReEDS/ReEDS-2.0
 
 # Run ReEDS! 
 # (using nohup to keep the process from dying when you end your ssh session)
-#nohup python runbatch_aws.py -c weekendcentroid -r 4 -b centwknd > myout.txt &
+#nohup python3 runbatch_aws.py -c weekendcentroid -r 4 -b centwknd > myout.txt &
 
 
 #========================================
 # -- old but potentially useful lines --
 #========================================
 
-#Following lines needed if using the gams version of python...
+#Following lines needed if using the gams version of python3...
 #these export path lines could all be wrapped together
 #but it helps me to break them out to avoid one big line
 #export PATH=$PATH:/opt/gams/gams35.1_linux_x64_64_sfx/
-#following instructs to use the gams version of python
+#following instructs to use the gams version of python3
 #allows us to avoid installing/configuring conda
 #ordering matters here! - we want the system to 
-#see the GAMS version of python first
+#see the GAMS version of python3 first
 #export PATH=/opt/gams/gams35.1_linux_x64_64_sfx/GMSPython:$PATH
-#add python package directory for GAMS python to path:
+#add python3 package directory for GAMS python3 to path:
 #export PATH=$PATH:/opt/gams/gams35.1_linux_x64_64_sfx/GMSPython/bin
 #can test to see if the following worked by typing:
-#which python
+#which python3
 #and should get something like:
-#/opt/gams/gams35.1_linux_x64_64_sfx/GMSPython/python
+#/opt/gams/gams35.1_linux_x64_64_sfx/GMSPython/python3
 
-#install necessary python packages
+#install necessary python3 packages
 #sudo yum install git
-#need to manually install a base package for python
+#need to manually install a base package for python3
 #that is not included with the gams version for some reason
 #and is not available via pip ----- such a headache
 #i've contacted GAMS on this.. working on a solution
-#git clone https://github.com/python/cpython.git
-#cp -r cpython/Lib/unittest/ /opt/gams/gams35.1_linux_x64_64_sfx/GMSPython/lib/python3.8/site-packages/unittest/
+#git clone https://github.com/python3/cpython3.git
+#cp -r cpython3/Lib/unittest/ /opt/gams/gams35.1_linux_x64_64_sfx/GMSPython/lib/python33.8/site-packages/unittest/
 
 #move to your git directory
 #!!! could be different for different users

@@ -1,2 +1,2 @@
 #!/bin/sh
-python generate_markdown.py
+python3 generate_markdown.py

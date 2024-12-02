@@ -714,6 +714,7 @@ print('Copying region-indexed files: filtering for valid regions')
 # Add 'lvl' to the sw_expanded dictionary
 sw_expanded = {**sw_expanded, **{'lvl':lvl}}
 
+
 for i, row in regionFiles.iterrows():
     filepath = row['filepath']
     filename = row['filename']
