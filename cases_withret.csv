@@ -337,4 +337,3 @@ dump_alldata,switch to automatically dump data from final solve year into .gdx f
 delete_big_files,switch to delete big input files after completion to save storage space,0; 1,0,,,,
 debug,Write and keep intermediate files and equation elements to help with debugging. The value of the switch is passed to `option limrow` and `option limcol` and indicates the number of equation and variable entries to print,int,0,,,,
 plot_ba_level,0=do not plot or output BA-level year-by-month plots; 1=plot and output BA-level year-by-month plots.,0; 1,0,,,,
-GSw_Ret_Iyanna,force retirement of certain units in the PNW,0; 1,0,,,,
