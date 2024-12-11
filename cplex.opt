@@ -12,7 +12,7 @@ advind 0
 reslim 172800
 
 *** scaind (integer): matrix scaling on/off [1 = modified, more aggressive scaling method]
-scaind 1
+scaind 0
 
 *** aggind (integer): aggregator on/off [5 = aggregator will be applied 5 times]
 aggind 5
@@ -21,10 +21,10 @@ aggind 5
 iis 1
 
 *** eprhs (float): feasibility tolerance [default = 1e-6]
-eprhs = 1e-5
+*eprhs = 1e-5
 
 *** epopt (float): optimality tolerance [default = 1e-6]
-epopt = 1e-6
+*epopt = 1e-6
 
 *** memoryemphasis (boolean): reduces use of memory but writes TBs of files to disk
 memoryemphasis 0
@@ -33,7 +33,7 @@ memoryemphasis 0
 *epmrk = 0.1
 
 *** barepcomp (float): tolerance on complementarity for convergence of the barrier algorithm [default 1e-8]
-barepcomp = 1e-8
+*barepcomp = 1e-8
 
 *############################################################################################
 *## The settings below can reduce solve time substantially, but their impacts on the solution
@@ -43,7 +43,7 @@ barepcomp = 1e-8
 *## https://iea-etsap.org/webinar/CPLEX%20options%20for%20running%20TIMES%20models.pdf
 
 *** numericalemphasis (boolean): emphasizes precision in numerically unstable or difficult problems [default 0]
-* numericalemphasis 1
+numericalemphasis 1
 
 *** depind (integer): dependency checker on/off. 3 = turn on at beginning and end of preprocessing [default -1]
 * depind 3

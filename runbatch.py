@@ -1488,10 +1488,10 @@ def runModel(options, caseSwitches, niter, reeds_path, ccworkers, startiter,
             # Give execution rights to the shell script
             os.chmod(os.path.join(casedir, call + batch_case + ext), 0o777)
             # Open it up - note the in/out/err will be written to the shellscript parameter
-            shellscript = subprocess.Popen(
-                [os.path.join(casedir, call + batch_case + ext)], shell=True)
+            #shellscript = subprocess.Popen(
+            #    [os.path.join(casedir, call + batch_case + ext)], shell=True)
             # Wait for it to finish before killing the thread
-            shellscript.wait()
+            #shellscript.wait()
         else:
             if int(caseSwitches['keep_run_terminal']) == 1:
                 terminal_keep_flag = ' /k '
